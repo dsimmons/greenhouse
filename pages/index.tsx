@@ -1,9 +1,18 @@
-import type { NextPage } from 'next'
+import { useState } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
+
+import type { NextPage } from 'next'
+
 // import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
+  const [ensAddr, setEnsAddr] = useState("");
+
+  const onSubmit = e => {
+    e.preventDefault()
+  }
+
   return (
     <div className="h-screen bg-slate-50">
       <Head>
@@ -28,11 +37,15 @@ const Home: NextPage = () => {
       </header>
       <main className="flex justify-center items-center">
         <section className="">
-          <input
-            type="search"
-            placeholder="vitalik.eth"
-            className="px-4 py-3 rounded"
-          />
+          <form onSubmit={onSubmit}>
+            <input
+              value={ensAddr}
+              onChange={e => setEnsAddr(e.target.value)}
+              type="search"
+              placeholder="vitalik.eth"
+              className="px-4 py-3 rounded"
+            />
+          </form>
         </section>
       </main>
       <footer>
