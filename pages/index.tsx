@@ -1,23 +1,11 @@
-import { ethers } from 'ethers'
-import { request } from 'graphql-request'
 import { useState } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
-
-import { LENS_API_URI } from '../src/constants';
-import { getProfile } from '../src/queries';
-
-import type { NextPage } from 'next'
-
 // import styles from '../styles/Home.module.css'
 
-async function resolveEnsAddr(ensAddr) {
-  return ethers.getDefaultProvider().resolveName(ensAddr);
-}
+import * as api from '../src/api';
 
-async function queryLensByAddr(addr) {
-  return request(LENS_API_URI, getProfile, { addr });
-}
+import type { NextPage } from 'next'
 
 const Home: NextPage = () => {
   const [ensAddr, setEnsAddr] = useState("");
@@ -25,11 +13,11 @@ const Home: NextPage = () => {
   const onSubmit = async (e) => {
     e.preventDefault()
 
-    const ethAddr = await resolveEnsAddr(ensAddr)
+    const ethAddr = await api.resolveEnsAddr(ensAddr)
     console.log(ethAddr)
     // TODO: Handle invalid ENS.
 
-    const lensProfile = await queryLensByAddr(ethAddr);
+    const lensProfile = await api.queryLensByAddr(ethAddr);
     console.log(lensProfile)
   }
 
