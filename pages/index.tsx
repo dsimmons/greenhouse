@@ -1,16 +1,36 @@
+import { ethers } from 'ethers'
+import { request } from 'graphql-request'
 import { useState } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
+
+import { LENS_API_URI } from '../src/constants';
+import { getProfile } from '../src/queries';
 
 import type { NextPage } from 'next'
 
 // import styles from '../styles/Home.module.css'
 
+async function resolveEnsAddr(ensAddr) {
+  return ethers.getDefaultProvider().resolveName(ensAddr);
+}
+
+async function queryLensByAddr(addr) {
+  return request(LENS_API_URI, getProfile, { addr });
+}
+
 const Home: NextPage = () => {
   const [ensAddr, setEnsAddr] = useState("");
 
-  const onSubmit = e => {
+  const onSubmit = async (e) => {
     e.preventDefault()
+
+    const ethAddr = await resolveEnsAddr(ensAddr)
+    console.log(ethAddr)
+    // TODO: Handle invalid ENS.
+
+    const lensProfile = await queryLensByAddr(ethAddr);
+    console.log(lensProfile)
   }
 
   return (
