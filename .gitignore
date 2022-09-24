@@ -1,3 +1,9 @@
+# Dirs I'm using locally that I have no intention of committing:
+greenhouse
+data
+
+tmp/
+
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
