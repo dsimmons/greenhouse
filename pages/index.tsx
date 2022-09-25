@@ -68,12 +68,12 @@ const Home: NextPage = () => {
     <div className="flex flex-col h-screen bg-slate-50">
       <Meta />
       <Header />
-      <main className="flex flex-col justify-center gap-20">
+      <main className="flex flex-col justify-center gap-20 px-6">
         <header className="">
           <h2 className="text-4xl text-center text-gray-900 font-semibold font-mono pt-6">
             Grow Your Web3 Roots
           </h2>
-          <p className="text-xl text-center">
+          <p className="text-xl text-center py-4">
             Greenhouse helps you find and discover frens on Lens!
           </p>
         </header>
