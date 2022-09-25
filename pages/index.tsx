@@ -1,3 +1,4 @@
+import { Button, Spinner } from 'flowbite-react'
 import { useState } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
@@ -23,7 +24,7 @@ const Home: NextPage = () => {
   }
 
   return (
-    <div className="h-screen bg-slate-50">
+    <div className="flex flex-col h-screen bg-slate-50">
       <Head>
         <title>Greenhouse | Grow your web3 roots!</title>
         <meta name="description" content="Grow your web3 roots! Greenhouse helps you find and connect with like-minded frens on the Lens protocol." />
@@ -44,8 +45,8 @@ const Home: NextPage = () => {
           className='hover:fill-[#ffcc00]'
         />
       </header>
-      <main className="flex justify-center items-center">
-        <section className="">
+      <main className="flex flex-grow justify-center items-center">
+        <section className="flex flex-row gap-3">
           <form onSubmit={onSubmit}>
             <input
               value={ensAddr}
@@ -55,10 +56,14 @@ const Home: NextPage = () => {
               className="px-4 py-3 rounded"
             />
           </form>
+          <Button>
+            <Spinner aria-label="Spinner button example" />
+            <span className="pl-3">Loading...</span>
+          </Button>
         </section>
       </main>
-      <footer>
-        Made with ❤️ @ ETHOnline 2022.
+      <footer className="flex justify-center">
+        <span>Made with ❤️ @ ETHOnline 2022.</span>
       </footer>
     </div>
   )
