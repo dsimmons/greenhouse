@@ -1,10 +1,11 @@
 import { Card, Dropdown } from 'flowbite-react'
 
-export default function LensCard({profile}) {
+export default function LensCard({profile}: any) {
   const img = profile?.picture?.uri || profile?.picture?.original?.url
+
   return (
-    <Card className="haha">
-      <div className="">
+    <Card>
+      <div>
         {img && (
           <img
             className="mb-3 h-16 w-16 rounded-md"

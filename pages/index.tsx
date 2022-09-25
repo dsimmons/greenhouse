@@ -17,7 +17,7 @@ const Home: NextPage = () => {
   const [userHasSearched, setUserHasSearched] = useState(false)
   const [reqIsInFlight, setReqIsInFlight] = useState(false)
   const [profile, setProfile] = useState(null)
-  const [err, setErr] = useState(null)
+  const [err, setErr] = useState("")
 
   // TODO: I can clean up a lot of this state management, but I ran out of time
   // to do it more cleanly.
@@ -59,7 +59,7 @@ const Home: NextPage = () => {
       return
     }
 
-    setErr(null)
+    setErr("")
     setProfile(profile)
     setReqIsInFlight(false)
   }
@@ -90,7 +90,6 @@ const Home: NextPage = () => {
               className="rounded"
             />
             <Button
-              className=""
               type="submit"
               size="lg"
               disabled={reqIsInFlight}
@@ -99,7 +98,6 @@ const Home: NextPage = () => {
           </form>
           {userHasSearched && (
             <SearchResult
-              className=""
               isSearching={reqIsInFlight}
               profile={profile}
             />

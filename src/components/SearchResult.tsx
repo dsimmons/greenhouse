@@ -3,7 +3,7 @@ import { Button, Spinner } from 'flowbite-react'
 import LensCard from './LensCard'
 
 type Props = {
-  profile?: Object,
+  profile?: Object | null,
   errorMsg?: string,
   isSearching: boolean,
 }
