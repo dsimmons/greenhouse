@@ -1,9 +1,9 @@
 import { Button, Spinner } from 'flowbite-react'
 import { useState } from 'react'
 import Head from 'next/head'
-import Image from 'next/image'
 // import styles from '../styles/Home.module.css'
 
+import Header from '../src/components/Header'
 import SearchResult from '../src/components/SearchResult'
 
 import * as api from '../src/api';
@@ -63,17 +63,7 @@ const Home: NextPage = () => {
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="manifest" href="/site.webmanifest" />
       </Head>
-      <header
-        className='bg-[#abfe2c] p-2'
-      >
-        <Image
-          src='/logo-sans-bg.svg'
-          alt='Greenhouse Logo'
-          width={150}
-          height={65}
-          className='hover:fill-[#ffcc00]'
-        />
-      </header>
+      <Header />
       <main className="flex justify-center py-6">
         <section className="flex flex-col gap-3">
           <header className="max-w-md mb-6">
