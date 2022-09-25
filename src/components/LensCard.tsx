@@ -5,23 +5,26 @@ export default function LensCard({profile}: any) {
 
   return (
     <Card>
-      <div>
-        {img && (
-          <img
-            className="mb-3 h-16 w-16 rounded-md"
-            src={img}
-          />
-        )}
-        <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-          {profile?.handle}
-        </h5>
-        <h5 className="mb-1 font-medium text-gray-900 dark:text-white">
-          {profile?.name}
-        </h5>
-        <p className="max-w-md text-sm text-gray-500 dark:text-gray-400">
+        <div className="flex">
+          {img && (
+            <img
+              className="h-16 w-16 rounded-md"
+              src={img}
+            />
+          )}
+          <div className="pl-4">
+            <h1 className="text-xl font-medium text-gray-900 dark:text-white">
+              {profile?.handle}
+            </h1>
+            <h2 className="font-light">
+              {profile?.name}
+            </h2>
+          </div>
+        </div>
+        <p className="max-w-xs text-gray-900 font-light text-sm">
           {profile?.bio}
         </p>
-        <div className="mt-4 flex space-x-3 lg:mt-6">
+        <div className="flex justify-center">
           <a
             href={`https://www.lensfrens.xyz/${profile.handle}`}
             target="_blank"
@@ -31,7 +34,6 @@ export default function LensCard({profile}: any) {
             + Add fren
           </a>
         </div>
-      </div>
     </Card>
   )
 }

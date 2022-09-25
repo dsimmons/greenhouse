@@ -65,7 +65,7 @@ const Home: NextPage = () => {
   }
 
   return (
-    <div className="flex flex-col h-screen bg-slate-50">
+    <div className="flex flex-col h-full min-h-screen bg-slate-50">
       <Meta />
       <Header />
       <main className="flex flex-col justify-center gap-20 px-6">
@@ -87,14 +87,16 @@ const Home: NextPage = () => {
               onChange={e => setEnsAddr(e.target.value)}
               type="search"
               placeholder={PLACEHOLDER_ENS_ADDR}
-              className="rounded"
+              className="rounded z-10"
             />
             <Button
               type="submit"
               size="lg"
               disabled={reqIsInFlight}
               gradientDuoTone="tealToLime"
-            >Search</Button>
+            >
+              <span className="font-light">Search</span>
+            </Button>
           </form>
           {userHasSearched && (
             <SearchResult
