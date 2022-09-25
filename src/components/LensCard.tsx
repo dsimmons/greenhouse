@@ -23,10 +23,12 @@ export default function LensCard({profile}: any) {
         </p>
         <div className="mt-4 flex space-x-3 lg:mt-6">
           <a
-            href="#"
-            className="inline-flex items-center rounded-lg bg-blue-700 py-2 px-4 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            href={`https://www.lensfrens.xyz/${profile.handle}`}
+            target="_blank"
+            rel="noreferrer"
+            className="bg-[#abfe2c] rounded-lg py-2 px-4 text-center text-sm font-semibold text-gray-700 hover:bg-green-300 focus:outline-none"
           >
-            Add friend
+            + Add fren
           </a>
         </div>
       </div>
