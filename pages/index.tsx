@@ -106,9 +106,7 @@ const Home: NextPage = () => {
         </section>
       </main>
       <div className="flex flex-grow" />
-      <footer className="flex justify-center">
-        <span className="text-gray-400">Made with ❤️ @ ETHOnline 2022</span>
-      </footer>
+      <Footer />
     </div>
   )
 }
