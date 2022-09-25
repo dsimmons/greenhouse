@@ -10,7 +10,6 @@ export default function Header() {
         alt='Greenhouse Logo'
         width={150}
         height={65}
-        className='hover:fill-[#ffcc00]'
       />
     </header>
   )
