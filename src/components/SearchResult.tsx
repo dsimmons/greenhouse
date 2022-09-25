@@ -8,12 +8,25 @@ type Props = {
   isSearching: boolean,
 }
 
+// TODO: Needs a refactor, but out of time.
 export default function SearchResult(props: Props) {
-  return (props.isSearching) ? (
-    <div className="flex justify-center">
-      <Spinner size="xl" />
-    </div>
-  ) : (
+  if (props.isSearching) {
+    return (
+      <div className="flex justify-center">
+        <Spinner size="xl" />
+      </div>
+    )
+  }
+
+  if (props.errorMsg) {
+    return (
+      <div className="flex justify-center ">
+        <p>{props.errorMsg}</p>
+      </div>
+    )
+  }
+
+  return (
     <div className="flex justify-center ">
       <LensCard profile={props.profile} />
     </div>

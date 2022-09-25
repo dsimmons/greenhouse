@@ -99,6 +99,7 @@ const Home: NextPage = () => {
           {userHasSearched && (
             <SearchResult
               isSearching={reqIsInFlight}
+              errorMsg={err}
               profile={profile}
             />
           )}
