@@ -45,9 +45,21 @@ const Home: NextPage = () => {
           className='hover:fill-[#ffcc00]'
         />
       </header>
-      <main className="flex flex-grow justify-center items-center">
-        <section className="flex flex-row gap-3">
-          <form onSubmit={onSubmit}>
+      <main className="flex justify-center py-6">
+        <section className="flex flex-col gap-3">
+          <header className="max-w-md mb-6">
+            <h2 className="text-xl text-center font-semibold py-1">
+              Grow & Spread Your Web3 Roots
+            </h2>
+            <p className="text-center">
+              Greenhouse helps you find and discover frens on Lens!
+            </p>
+            <p className="text-center mt-2">
+              Enter an ENS address below to check if the identity has a registered Lens profile.
+            </p>
+
+          </header>
+          <form className="flex flex-row gap-3" onSubmit={onSubmit}>
             <input
               value={ensAddr}
               onChange={e => setEnsAddr(e.target.value)}
@@ -55,6 +67,7 @@ const Home: NextPage = () => {
               placeholder="vitalik.eth"
               className="px-4 py-3 rounded"
             />
+            <Button className="px-4 py-3" type="submit">Search</Button>
           </form>
           <Button>
             <Spinner aria-label="Spinner button example" />
@@ -62,8 +75,9 @@ const Home: NextPage = () => {
           </Button>
         </section>
       </main>
+      <div className="flex flex-grow" />
       <footer className="flex justify-center">
-        <span>Made with ❤️ @ ETHOnline 2022.</span>
+        <span className="text-gray-400">Made with ❤️ @ ETHOnline 2022</span>
       </footer>
     </div>
   )
