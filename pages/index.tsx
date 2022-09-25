@@ -77,7 +77,7 @@ const Home: NextPage = () => {
             Greenhouse helps you find and discover frens on Lens!
           </p>
         </header>
-        <section className="flex flex-col">
+        <section className="flex flex-col gap-3">
           <p className="text-center mt-2">
             Enter an <span className="font-bold">ENS address</span> below to check if the identity has a registered Lens profile.
           </p>
@@ -99,6 +99,7 @@ const Home: NextPage = () => {
           </form>
           {userHasSearched && (
             <SearchResult
+              className=""
               isSearching={reqIsInFlight}
               profile={profile}
             />

@@ -3,13 +3,13 @@ import { Card, Dropdown } from 'flowbite-react'
 export default function LensCard({profile}) {
   const img = profile?.picture?.uri || profile?.picture?.original?.url
   return (
-    <Card>
-      <div className="flex flex-col items-center pb-10">
+    <Card className="haha">
+      <div className="">
         {img && (
           <img
-            className="mb-3 h-16 w-16 rounded-full shadow-lg"
+            className="mb-3 h-16 w-16 rounded-md"
             src={img}
-            />
+          />
         )}
         <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
           {profile?.handle}
@@ -17,9 +17,9 @@ export default function LensCard({profile}) {
         <h5 className="mb-1 font-medium text-gray-900 dark:text-white">
           {profile?.name}
         </h5>
-        <span className="text-sm text-gray-500 dark:text-gray-400">
+        <p className="max-w-md text-sm text-gray-500 dark:text-gray-400">
           {profile?.bio}
-        </span>
+        </p>
         <div className="mt-4 flex space-x-3 lg:mt-6">
           <a
             href="#"

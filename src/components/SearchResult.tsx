@@ -9,15 +9,13 @@ type Props = {
 }
 
 export default function SearchResult(props: Props) {
-  return (
-    <div className="mt-6">
-    {(props.isSearching) ? (
-      <div className="flex justify-center">
-        <Spinner size="xl" />
-      </div>
-    ) : (
+  return (props.isSearching) ? (
+    <div className="flex justify-center">
+      <Spinner size="xl" />
+    </div>
+  ) : (
+    <div className="flex justify-center ">
       <LensCard profile={props.profile} />
-    )}
     </div>
   )
 }
