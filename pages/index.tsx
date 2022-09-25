@@ -4,23 +4,52 @@ import Head from 'next/head'
 import Image from 'next/image'
 // import styles from '../styles/Home.module.css'
 
+import SearchResult from '../src/components/SearchResult'
+
 import * as api from '../src/api';
 
 import type { NextPage } from 'next'
 
 const Home: NextPage = () => {
   const [ensAddr, setEnsAddr] = useState("");
+  const [shouldShowSearchResults, setShouldShowSearchResults] = useState(false);
+  const [reqIsInFlight, setReqIsInFlight] = useState(false);
+  const [profile, setProfile] = useState(null);
+  const [err, setErr] = useState(null);
 
+  // TODO: I can clean up a lot of this state management, but I ran out of time
+  // to do it more cleanly.
   const onSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault()
+    setShouldShowSearchResults(true);
+
+    // If we have a pending search, wait for it to complete.
+    //
+    // We do this for a host of reasons, not the list of which is rate-limiting
+    // via the default ethers.js provider (sans API keys)!
+    if (reqIsInFlight) return
+    setReqIsInFlight(true)
 
     const ethAddr = await api.resolveEnsAddr(ensAddr)
-    console.log(ethAddr)
-    if (!ethAddr) return;
-    // TODO: Handle invalid ENS.
+    console.log('ethAddr', ethAddr)
+    if (!ethAddr) {
+      setErr("ENS address doesn't exist!")
+      setProfile(null)
+      setReqIsInFlight(false)
+    }
 
-    const lensProfile = await api.queryLensByAddr(ethAddr);
-    console.log(lensProfile)
+    const result = await api.queryLensByAddr(ethAddr);
+    const profile = result?.profiles?.items[0]
+    console.log('profile', profile)
+    if (!profile) {
+      setErr(`${ensAddr} does not have a Lens profile :(`)
+      setProfile(null)
+      setReqIsInFlight(false)
+    }
+
+    setErr(null)
+    setProfile(profile)
+    setReqIsInFlight(false);
   }
 
   return (
@@ -69,10 +98,12 @@ const Home: NextPage = () => {
             />
             <Button className="px-4 py-3" type="submit">Search</Button>
           </form>
-          <Button>
-            <Spinner aria-label="Spinner button example" />
-            <span className="pl-3">Loading...</span>
-          </Button>
+          {shouldShowSearchResults && (
+            <SearchResult
+              isSearching={reqIsInFlight}
+              profile={profile}
+            />
+          )}
         </section>
       </main>
       <div className="flex flex-grow" />
