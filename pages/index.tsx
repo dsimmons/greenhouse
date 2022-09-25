@@ -1,86 +1,103 @@
 import { Button, Spinner } from 'flowbite-react'
 import { useState } from 'react'
-// import styles from '../styles/Home.module.css'
+import type { NextPage } from 'next'
 
 import Header from '../src/components/Header'
 import Meta from '../src/components/Meta'
+import Footer from '../src/components/Footer'
 import SearchResult from '../src/components/SearchResult'
 
-import * as api from '../src/api';
+import { PLACEHOLDER_ENS_ADDR } from '../src/constants'
+import * as api from '../src/api'
 
-import type { NextPage } from 'next'
+type Result = string | Object
 
 const Home: NextPage = () => {
-  const [ensAddr, setEnsAddr] = useState("");
-  const [shouldShowSearchResults, setShouldShowSearchResults] = useState(false);
-  const [reqIsInFlight, setReqIsInFlight] = useState(false);
-  const [profile, setProfile] = useState(null);
-  const [err, setErr] = useState(null);
+  const [ensAddr, setEnsAddr] = useState("")
+  const [userHasSearched, setUserHasSearched] = useState(false)
+  const [reqIsInFlight, setReqIsInFlight] = useState(false)
+  const [profile, setProfile] = useState(null)
+  const [err, setErr] = useState(null)
 
   // TODO: I can clean up a lot of this state management, but I ran out of time
   // to do it more cleanly.
   const onSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault()
-    setShouldShowSearchResults(true);
 
     // If we have a pending search, wait for it to complete.
     //
     // We do this for a host of reasons, not the list of which is rate-limiting
     // via the default ethers.js provider (sans API keys)!
     if (reqIsInFlight) return
+
+    // If a user immediately presses "Search" (or enter) without typing an
+    // address into the box, pretend as if they typed in the placeholder ENS
+    // address.
+    console.log('placeholder', PLACEHOLDER_ENS_ADDR)
+    if (!ensAddr) setEnsAddr(PLACEHOLDER_ENS_ADDR)
     setReqIsInFlight(true)
 
-    const ethAddr = await api.resolveEnsAddr(ensAddr)
+    if (!userHasSearched) setUserHasSearched(true)
+
+    console.log('ensAddr', ensAddr)
+    const ethAddr = await api.resolveEnsAddr(ensAddr || PLACEHOLDER_ENS_ADDR)
     console.log('ethAddr', ethAddr)
     if (!ethAddr) {
       setErr("ENS address doesn't exist!")
       setProfile(null)
       setReqIsInFlight(false)
+      return
     }
 
-    const result = await api.queryLensByAddr(ethAddr);
+    const result = await api.queryLensByAddr(ethAddr)
     const profile = result?.profiles?.items[0]
     console.log('profile', profile)
     if (!profile) {
       setErr(`${ensAddr} does not have a Lens profile :(`)
       setProfile(null)
       setReqIsInFlight(false)
+      return
     }
 
     setErr(null)
     setProfile(profile)
-    setReqIsInFlight(false);
+    setReqIsInFlight(false)
   }
 
   return (
     <div className="flex flex-col h-screen bg-slate-50">
       <Meta />
       <Header />
-      <main className="flex justify-center py-6">
-        <section className="flex flex-col gap-3">
-          <header className="max-w-md mb-6">
-            <h2 className="text-xl text-center font-semibold py-1">
-              Grow & Spread Your Web3 Roots
-            </h2>
-            <p className="text-center">
-              Greenhouse helps you find and discover frens on Lens!
-            </p>
-            <p className="text-center mt-2">
-              Enter an ENS address below to check if the identity has a registered Lens profile.
-            </p>
-
-          </header>
-          <form className="flex flex-row gap-3" onSubmit={onSubmit}>
+      <main className="flex flex-col justify-center gap-20">
+        <header className="">
+          <h2 className="text-4xl text-center text-gray-900 font-semibold font-mono pt-6">
+            Grow Your Web3 Roots
+          </h2>
+          <p className="text-xl text-center">
+            Greenhouse helps you find and discover frens on Lens!
+          </p>
+        </header>
+        <section className="flex flex-col">
+          <p className="text-center mt-2">
+            Enter an <span className="font-bold">ENS address</span> below to check if the identity has a registered Lens profile.
+          </p>
+          <form className="flex flex-row justify-center" onSubmit={onSubmit}>
             <input
               value={ensAddr}
               onChange={e => setEnsAddr(e.target.value)}
               type="search"
-              placeholder="vitalik.eth"
-              className="px-4 py-3 rounded"
+              placeholder={PLACEHOLDER_ENS_ADDR}
+              className="rounded"
             />
-            <Button className="px-4 py-3" type="submit">Search</Button>
+            <Button
+              className=""
+              type="submit"
+              size="lg"
+              disabled={reqIsInFlight}
+              gradientDuoTone="tealToLime"
+            >Search</Button>
           </form>
-          {shouldShowSearchResults && (
+          {userHasSearched && (
             <SearchResult
               isSearching={reqIsInFlight}
               profile={profile}

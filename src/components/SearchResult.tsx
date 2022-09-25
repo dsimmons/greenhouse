@@ -10,7 +10,7 @@ type Props = {
 
 export default function SearchResult(props: Props) {
   return (
-    <div className="max-w-sm">
+    <div className="mt-6">
     {(props.isSearching) ? (
       <div className="flex justify-center">
         <Spinner size="xl" />
