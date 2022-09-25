@@ -10,11 +10,12 @@ import type { NextPage } from 'next'
 const Home: NextPage = () => {
   const [ensAddr, setEnsAddr] = useState("");
 
-  const onSubmit = async (e) => {
+  const onSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault()
 
     const ethAddr = await api.resolveEnsAddr(ensAddr)
     console.log(ethAddr)
+    if (!ethAddr) return;
     // TODO: Handle invalid ENS.
 
     const lensProfile = await api.queryLensByAddr(ethAddr);
